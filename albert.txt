@@ -1,3 +1,0 @@
-b
-Hello Mars!
-devops training
