@@ -11,3 +11,7 @@ variable "inst_type" {
 variable "inst_count" {
   default = 1
 }
+
+variable "disk_size" {
+  default = 8
+}
