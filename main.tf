@@ -1,11 +1,19 @@
-resource "aws_instance" "demo-terraform" {
-  ami           = var.ami_id
-  instance_type = var.inst_type
-  count         = var.inst_count
+resource "aws_vpc" "my_vpc" {
+  cidr_block = "10.0.0.0/16"
+}
 
-  root_block_device {
-    volume_size = var.disk_size
-    volume_type = "gp2"
+resource "aws_subnet" "my_subnet" {
+  vpc_id     = aws_vpc.my_vpc.id
+  cidr_block = "10.0.0.0/24"
+}
+
+resource "aws_instance" "my_instance" {
+  ami           = var.ami_id  # Replace with a valid AMI ID
+  instance_type = var.inst_type
+  subnet_id     = aws_subnet.my_subnet.id
+
+  tags = {
+    Name = "terraEC2Instance"
   }
 }
 
