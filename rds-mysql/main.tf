@@ -12,6 +12,3 @@ resource "aws_db_instance" "rds_mysql" {
   db_subnet_group_name  = aws_db_subnet_group.rds_subnet_group.name
 }
 
-output "rds_endpoint" {
-  value = aws_db_instance.rds_mysql.endpoint
-}
