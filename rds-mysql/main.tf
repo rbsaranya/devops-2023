@@ -4,7 +4,6 @@ resource "aws_db_instance" "rds_mysql" {
   engine               = "mysql"
   engine_version       = "5.7"
   instance_class       = "db.t2.micro"
-  name                 = "mydb"
   username             = "admin"
   password             = "mypassword"
   parameter_group_name = "default.mysql5.7"
@@ -16,4 +15,3 @@ resource "aws_db_instance" "rds_mysql" {
 output "rds_endpoint" {
   value = aws_db_instance.rds_mysql.endpoint
 }
-
