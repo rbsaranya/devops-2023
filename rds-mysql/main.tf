@@ -1,24 +1,3 @@
-provider "aws" {
-  region = "us-east-1" # Update this to your desired region
-}
-
-resource "aws_security_group" "rds_sg" {
-  name        = "rds-mysql-sg"
-  description = "RDS MySQL security group"
-
-  ingress {
-    from_port   = 3306
-    to_port     = 3306
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] # Update this to restrict access
-  }
-}
-
-resource "aws_db_subnet_group" "rds_subnet_group" {
-  name       = "rds-mysql-subnet-group"
-  subnet_ids = ["subnet-12345678", "subnet-23456789"] # Update with your subnet IDs
-}
-
 resource "aws_db_instance" "rds_mysql" {
   allocated_storage    = 20
   storage_type         = "gp2"
