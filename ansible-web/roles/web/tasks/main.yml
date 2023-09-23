@@ -2,13 +2,13 @@
 # tasks file for nginx
 
 
-- name: Install the latest version of Apache
+- name: Install the latest version of "{{ service_name }}" on "{{ env_name }}"
   ansible.builtin.yum:
-    name: httpd
+    name: "{{ service_name }}"
     state: latest
 
-- name: Start service httpd, if not started
+- name: Start service "{{ service_name }}", if not started on "{{ env_name }}"
   ansible.builtin.service:
-    name: httpd
+    name: "{{ service_name }}"
     state: started
 

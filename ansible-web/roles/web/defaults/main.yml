@@ -1,2 +1,5 @@
 ---
 # defaults file for nginx
+
+service_name: "httpd"
+env_name: "prod"
