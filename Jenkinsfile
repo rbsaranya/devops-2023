@@ -9,7 +9,7 @@ pipeline {
         }
         stage('terraform plan') {
             steps {
-                echoo 'terraform plan'
+                echo 'terraform plan'
             }
         }
         stage('terraform apply') {
