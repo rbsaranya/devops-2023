@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('terraform init') {
             steps {
-                echo 'terraform Init'
+                echo 'terraform init'
             }
         }
         stage('terraform plan') {
@@ -19,4 +19,3 @@ pipeline {
         }
     }
 }
-
