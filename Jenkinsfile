@@ -22,5 +22,6 @@ pipeline {
             steps {
                 echo "terraform validate"
             }
+	}
     }
 }
