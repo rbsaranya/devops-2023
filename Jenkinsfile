@@ -4,7 +4,8 @@ pipeline {
     stages {
         stage('terraform init') {
             steps {
-                echo 'terraform init'
+                cd terraform/dev
+                terraform init
             }
         }
         stage('terraform plan') {
