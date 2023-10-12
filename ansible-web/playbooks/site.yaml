@@ -2,7 +2,7 @@
 
   - name: common server
     hosts: all
-    remote_user: ec2-user
+    remote_user: ubuntu
     become: yes
 
     roles:
@@ -10,7 +10,7 @@
 
   - name: web server
     hosts: web
-    remote_user: ec2-user
+    remote_user: ubuntu
     become: yes
 
     roles:
@@ -19,7 +19,7 @@
 
   - name: app server
     hosts: app
-    remote_user: ec2-user
+    remote_user: ubuntu
     become: yes
 
     roles:
@@ -28,8 +28,7 @@
 
   - name: db server
     hosts: db
-    remote_user: ec2-user
+    remote_user: ubuntu
     become: yes
-
     roles:
       - db
