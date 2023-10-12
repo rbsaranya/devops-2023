@@ -54,7 +54,7 @@ resource "aws_key_pair" "mykeypair" {
   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDJ9BacBX/P61rhHaUDZLlMhTWKnj8M2KVruA49OMAX9qcWWhJgRrk9K864wg8+ykNQbWLn6w6nX/z0F6ilNqXzRKODwIyYE6zTIQb3UkZYPYqNarNEdNaadAErEWMPRAEZQCsQtiKT8qYizo2wNxrrqHTxPy3+4EHBPeX0cahXbMgcdL6r0EfPaexXPg6OPhRhsOH726iOZAS8OZnEVAqKrnrtO5fbIiV6RMECMgB2q4sed+8OmIIPyozDgcdlkEuUUlZimAtQVA9uWZ7EjNzcEqzDVxCPgjRbtT+A5bLBCkswnCmiYFD1x0887vI3xmkHOi8BDpZw2lZXNLDn6z1dxhOrGc1ZEeeLDvtp40cTwH66e4yGIK60+g1XkwoKdYNY+s/E8LTntLCF8AtL1d2KhXJBWFo08VuUA/BSEPmIIyP5Pu7bvlZBi0h3xwNeoN0LOZAMPsPqTHn3hBpC4XfjR1MzRsKecIPlp24oVLyAo8zRgPxlaQK0qM2sXizijOs= rbsaranya@gmail.com" # Replace this with your SSH public key
 }
 
-resource "aws_instance" "terraform" {
+  resource "aws_instance" "web_instance" {
   ami             = var.ami_id
   instance_type   = var.inst_type
   count           = var.inst_count
@@ -67,8 +67,46 @@ resource "aws_instance" "terraform" {
     volume_size = var.disk_size
     volume_type = "gp2"
   }
+
   tags = {
-    Name = "terraDEvInstance"
+    Name = "web"  # Assign the "web" tag to web instances
+  }
+}
+
+resource "aws_instance" "app_instance" {
+  ami             = var.ami_id
+  instance_type   = var.inst_type
+  count           = var.inst_count
+  subnet_id       = aws_subnet.mysubnet.id
+  key_name        = aws_key_pair.mykeypair.key_name
+  associate_public_ip_address = true
+  security_groups = [aws_security_group.mysecurity.id]
+
+  root_block_device {
+    volume_size = var.disk_size
+    volume_type = "gp2"
   }
 
+  tags = {
+    Name = "app"  # Assign the "app" tag to app instances
+  }
+}
+
+resource "aws_instance" "db_instance" {
+  ami             = var.ami_id
+  instance_type   = var.inst_type
+  count           = var.inst_count
+  subnet_id       = aws_subnet.mysubnet.id
+  key_name        = aws_key_pair.mykeypair.key_name
+  associate_public_ip_address = true
+  security_groups = [aws_security_group.mysecurity.id]
+
+  root_block_device {
+    volume_size = var.disk_size
+    volume_type = "gp2"
+  }
+
+  tags = {
+    Name = "db"  # Assign the "db" tag to database instances
+  }
 }
