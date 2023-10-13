@@ -28,6 +28,11 @@ resource "aws_route_table" "routetable" {
     Name = "MyRouteTable"
   }
 }
+#Adding Subnet Association
+resource "aws_route_table_association" "my_association" {
+  subnet_id      = aws_subnet.mysubnet.id
+  route_table_id = aws_route_table.routetable.id
+}
 
 resource "aws_security_group" "mysecurity" {
   name        = "mysecurity"
@@ -39,7 +44,7 @@ resource "aws_security_group" "mysecurity" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["10.0.0.0/24"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
@@ -57,16 +62,17 @@ resource "tls_private_key" "pk" {
 
 #Creating keypair in the present working directory
 resource "aws_key_pair" "kp" {
-  key_name   = "myKey"
+  key_name   = "mykey"
   public_key = tls_private_key.pk.public_key_openssh
 
   provisioner "local-exec" {
-    command = "echo '${tls_private_key.pk.private_key_pem}' > ./myKey.pem"
+    command = "echo '${tls_private_key.pk.private_key_pem}' > ./mykey.pem"
 }
  provisioner "local-exec" {
-    command = "chmod 400 ./myKey.pem"
+    command = "chmod 400 ./mykey.pem"
 }
 }
+
   resource "aws_instance" "web_instance" {
   ami             = var.ami_id
   instance_type   = var.inst_type
