@@ -72,7 +72,7 @@ resource "aws_key_pair" "kp" {
   instance_type   = var.inst_type
   count           = var.inst_count
   subnet_id       = aws_subnet.mysubnet.id
-  key_name        = aws_key_pair.mykeypair.key_name
+  key_name        = aws_key_pair.kp.key_name
   associate_public_ip_address = true
   security_groups = [aws_security_group.mysecurity.id]
 
@@ -91,7 +91,7 @@ resource "aws_instance" "app_instance" {
   instance_type   = var.inst_type
   count           = var.inst_count
   subnet_id       = aws_subnet.mysubnet.id
-  key_name        = aws_key_pair.mykeypair.key_name
+  key_name        = aws_key_pair.kp.key_name
   associate_public_ip_address = true
   security_groups = [aws_security_group.mysecurity.id]
 
@@ -110,7 +110,7 @@ resource "aws_instance" "db_instance" {
   instance_type   = var.inst_type
   count           = var.inst_count
   subnet_id       = aws_subnet.mysubnet.id
-  key_name        = aws_key_pair.mykeypair.key_name
+  key_name        = aws_key_pair.kp.key_name
   associate_public_ip_address = true
   security_groups = [aws_security_group.mysecurity.id]
 
