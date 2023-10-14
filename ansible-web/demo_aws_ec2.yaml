@@ -1,0 +1,13 @@
+plugin: amazon.aws.aws_ec2
+regions:
+  - us-east-2
+hostnames:
+- tag:Name
+keyed_groups:
+  # Add hosts to tag_Name_value groups for each aws_ec2 host's tags.Name variable.
+  - key: tags.Name
+  - key: tags.HostName 
+  - key: tags.get('web')
+compose:
+  # This sets the `ansible_host` variable to connect with the private IP address without changing the hostname.
+  ansible_host: public_ip_address

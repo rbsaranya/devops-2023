@@ -1,7 +1,7 @@
 ---
 
-  - name: db server
-    hosts: db 
+    name: db 
+    hosts:  db 
     remote_user: ec2-user
     become: yes
 
